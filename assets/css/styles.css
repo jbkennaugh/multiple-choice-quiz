@@ -44,9 +44,20 @@ ol {
   overflow: auto;
 }
 
+ul {
+  display:flex;
+  justify-items: center;
+  flex-direction: column;
+}
+
 li {
-  padding: 5px;
-  list-style: decimal inside none;
+  padding: 5%;
+}
+
+#choice-list button {
+  display: flex;
+  padding: 5%;
+  justify-content: center;
 }
 
 li:nth-child(odd) {
@@ -58,6 +69,11 @@ li:nth-child(odd) {
   padding-top: 5%;;
   display: flex;
   justify-content: space-around;
+}
+
+#error {
+  color: red;
+  font-weight: bold;
 }
 
 .wrapper {

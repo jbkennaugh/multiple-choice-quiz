@@ -8,18 +8,23 @@ let scoreEl     = document.querySelector("#score");
 let timerEl     = document.querySelector("#timer");
 let choiceList  = document.querySelector("#choice-list");
 let initialsEl  = document.querySelector("#initials");
+let error       = document.querySelector("#error");
+let highscores  = JSON.parse(localStorage.getItem("highscores"));
+
 let timeLeft, currentScore, remainingQuestions, questionNumber;
 
 startButton.addEventListener("click", init);
 scoreSubmit.addEventListener("click", saveHighScore);
 
+// ensures good start values
 function init(){
-    timeLeft = 60;
+    timeLeft = questions.length * 10;
     currentScore = 0;
     questionNumber = 0;
     timerEl.textContent = "Timer: "+timeLeft;
     scoreEl.textContent = "Score: "+currentScore;
 
+    if(highscores === null) { highscores = []; }
     startQuiz();
 }
 
@@ -49,32 +54,50 @@ function endQuiz(){
     document.querySelector("#final-score").textContent = currentScore;
 }
 
+// iterates through the possible answers for the given question and prints them out, 
+// creating a button for each one
 function renderQuestion(questionNumber) {
     let theseAnswers = answers[questionNumber];
     choiceList.innerHTML = "";
     document.querySelector("#question-title").textContent = questions[questionNumber][0];
+    //gets the correct answer from the arrays in questions.js
     correctAnswerIndex = questions[questionNumber][1] - 1;
     correctAnswer = answers[questionNumber][correctAnswerIndex];
     questionNumber++;
     
     for (var i = 0; i < 4; i++){
-        var answer = theseAnswers[i];
-        var li = document.createElement("li");        
+        var answer = theseAnswers[i];       
         var select = document.createElement("button");
         select.textContent = answer;
         
-        choiceList.appendChild(li);
-        li.appendChild(select);
+        choiceList.appendChild(select);
 
         select.addEventListener("click", function(){
             //checks if this button's answer is the correct answer
             if(this.textContent !== correctAnswer){ timeLeft -= 10; }
             else { currentScore++; }
-            renderQuestion(questionNumber); 
+            if(questionNumber > questions.length-1){ endQuiz(); }
+            // will only run if there is more questions unanswered
+            else{ renderQuestion(questionNumber); }
         });
     }
 }
 
 function saveHighScore(){
     let initials = initialsEl.value;
+    if(!initials || initials.length > 3){
+        error.classList.remove("hide");
+    }
+    else{
+        error.classList.add("hide");
+        highscores.push([initials,currentScore]);
+        // sorts the highscores beforing updating local storage
+        highscores.sort(function(a,b) {
+            return b[1]-a[1];
+        });
+        
+        localStorage.setItem("highscores",JSON.stringify(highscores));
+
+        document.location.href = "highscores.html";
+    }
 }
