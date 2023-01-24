@@ -61,6 +61,7 @@ function endQuiz(){
 function renderQuestion(questionNumber) {
     let theseAnswers = answers[questionNumber];
     choiceList.innerHTML = "";
+    scoreEl.textContent = "Score: "+currentScore;
     document.querySelector("#question-title").textContent = questions[questionNumber][0];
     //gets the correct answer from the arrays in questions.js
     correctAnswerIndex = questions[questionNumber][1] - 1;
