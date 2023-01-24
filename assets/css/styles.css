@@ -53,13 +53,20 @@ li:nth-child(odd) {
   background-color: #f3edfc;
 }
 
+/* added flex for timer and score div */ 
+#current-stats {
+  padding-top: 5%;;
+  display: flex;
+  justify-content: space-around;
+}
+
 .wrapper {
   margin: 100px auto 0 auto;
   max-width: 600px;
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .start {

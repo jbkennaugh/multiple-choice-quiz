@@ -12,7 +12,10 @@
   <body>
     <div class="scores"><a href="highscores.html">View Highscores</a></div>
 
-    <div class="timer">Time: <span id="time">0</span></div>
+    <div id="current-stats" class="hide">
+      <h2 id="score"></h2>
+      <h2 id="timer"></h2>
+    </div>
 
     <div class="wrapper">
       <div id="start-screen" class="start">
@@ -25,14 +28,11 @@
         <button id="start">Start Quiz</button>
       </div>
 
-      <div id="currentStats" class="hide">
-        <h2 id="score"></h2>
-        <h2 id="timer"></h2>
-      </div>
-
       <div id="questions" class="hide">
         <h3 id="question-title"></h2>
-        <div id="choices" class="choices"></div>
+        <div id="choices" class="choices">
+          <ul id="choice-list"></ul>
+        </div>
       </div>
 
       <div id="end-screen" class="hide">
