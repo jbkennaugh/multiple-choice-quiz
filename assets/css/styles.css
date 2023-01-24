@@ -1,4 +1,5 @@
 body {
+  text-align: center;
   font-family: Arial;
   font-size: 120%;
 }
@@ -102,6 +103,14 @@ li:nth-child(odd) {
   padding-top: 10px;
   color: gray;
   border-top: 2px solid #ccc;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
 }
 
 .timer {

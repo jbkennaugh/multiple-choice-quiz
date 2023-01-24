@@ -9,6 +9,8 @@ let timerEl     = document.querySelector("#timer");
 let choiceList  = document.querySelector("#choice-list");
 let initialsEl  = document.querySelector("#initials");
 let error       = document.querySelector("#error");
+let feedbackDiv = document.querySelector("#feedback");
+let feedbackEl  = feedbackDiv.firstChild;
 let highscores  = JSON.parse(localStorage.getItem("highscores"));
 
 let timeLeft, currentScore, remainingQuestions, questionNumber;
@@ -74,8 +76,24 @@ function renderQuestion(questionNumber) {
 
         select.addEventListener("click", function(){
             //checks if this button's answer is the correct answer
-            if(this.textContent !== correctAnswer){ timeLeft -= 10; }
-            else { currentScore++; }
+            if(this.textContent !== correctAnswer){ 
+                //feedback will show for a short time if wrong, longer if wrong to see right answer
+                feedbackEl.textContent = `This answer was incorrect. The correct answer was "${correctAnswer}"`;
+                feedbackDiv.classList.replace("hide","incorrect");
+                setTimeout(function () {
+                    feedbackDiv.classList.replace("incorrect","hide");
+                }, 3000);
+                timeLeft -= 10; 
+            }
+            else { 
+                //feedback will show for a short time if right
+                feedbackEl.textContent = `This answer was correct.`;
+                feedbackDiv.classList.replace("hide","correct");
+                setTimeout(function () {
+                    feedbackDiv.classList.replace("correct","hide");
+                }, 1000);
+                currentScore++; 
+            }
             if(questionNumber > questions.length-1){ endQuiz(); }
             // will only run if there is more questions unanswered
             else{ renderQuestion(questionNumber); }
