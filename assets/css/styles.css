@@ -1,6 +1,6 @@
 body {
   text-align: center;
-  font-family: Arial;
+  font-family: 'ABeeZee';
   font-size: 120%;
 }
 
@@ -15,6 +15,7 @@ a:hover {
 }
 
 button {
+  font-family: 'ABeeZee';
   display: inline-block;
   margin: 5px;
   cursor: pointer;
